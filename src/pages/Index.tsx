@@ -10,7 +10,7 @@ import { PredictionRequest, PredictionResponse, mockPredictFlight, predictFlight
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<PredictionResponse | null>(null);
+  const [result, setResult] = useState(null);
 
   const handlePredict = async (data: PredictionRequest) => {
     setIsLoading(true);
@@ -49,9 +49,15 @@ const Index = () => {
           description: 'El servidor no está disponible. Mostrando predicción simulada.',
         });
       }
-      console.log('response: ', response);
-      
-      setResult(response);
+      const {destination_airport, origin_airport} = data
+      const {...restoResponse} = response
+      const responseFormateado ={
+        ...restoResponse,
+        timestamp: new Date(),
+        ruta: `${origin_airport} → ${destination_airport}` //'punto 1  punto 2',
+      }
+
+      setResult(responseFormateado);
       
       // Scroll to result
       setTimeout(() => {
