@@ -35,7 +35,7 @@ const Index = () => {
         day: fecha.getUTCDate(),
         month: fecha.getUTCMonth() + 1,
         year: fecha.getUTCFullYear(),
-        time: time
+        scheduled_departure: time
       }
 
       console.log(vueloFormateado);
@@ -49,7 +49,8 @@ const Index = () => {
           description: 'El servidor no está disponible. Mostrando predicción simulada.',
         });
       }
-
+      console.log('response: ', response);
+      
       setResult(response);
       
       // Scroll to result

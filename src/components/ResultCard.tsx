@@ -13,7 +13,7 @@ export const ResultCard = ({ result, onReset }: ResultCardProps) => {
 
   const isOnTime = result.prevision === 'Puntual';
   const percentage = Math.round(result.probabilidad * 100);
-  const [origin, destination] = result.ruta.split(' → ');
+  //const [origin, destination] = result.ruta.split(' → ');
 
   return (
     <AnimatePresence>
@@ -124,10 +124,10 @@ export const ResultCard = ({ result, onReset }: ResultCardProps) => {
                   <ArrowRight className="w-4 h-4" />
                   <div className="w-8 h-px bg-primary-foreground/50" />
                 </div>
-                <div className="text-center">
+                {/* <div className="text-center">
                   <div className="text-3xl font-bold">{destination}</div>
                   <div className="text-sm text-primary-foreground/70">Destino</div>
-                </div>
+                </div> */}
               </div>
             </motion.div>
 
@@ -139,9 +139,9 @@ export const ResultCard = ({ result, onReset }: ResultCardProps) => {
               className="flex items-center justify-center gap-2 text-primary-foreground/70 text-sm mb-8"
             >
               <Clock className="w-4 h-4" />
-              <span>
+              {/* <span>
                 Predicción realizada: {new Date(result.timestamp).toLocaleString('es-ES')}
-              </span>
+              </span> */}
             </motion.div>
 
             {/* Reset Button */}

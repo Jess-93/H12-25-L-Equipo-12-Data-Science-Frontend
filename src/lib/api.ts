@@ -3,29 +3,27 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost:8080/api/v1';
 
 export interface PredictionRequest {
-  aerolinea: string;
-  origen: string;
-  destino: string;
+  airline: string;
+  origin_airport: string;
+  destination_airport: string;
   fecha_partida: string;
-  distancia_km: number;
+  distance: number;
 }
 
 export interface FormattedPrediction extends Omit<PredictionRequest, 'fecha_partida'> {
   day: number;
   month: number;
   year: number;
-  time: number;
+  scheduled_departure: number;
 }
 
 export interface PredictionResponse {
   prevision: 'Puntual' | 'Retrasado';
   probabilidad: number;
-  timestamp: string;
-  ruta: string;
 }
 
 export const predictFlight = async (data): Promise<PredictionResponse> => {
-  const response = await axios.post<PredictionResponse>(`${API_BASE_URL}/predict`, data);
+  const response = await axios.post<PredictionResponse>(`${API_BASE_URL}/flights/predict`, data);
   return response.data;
 };
 

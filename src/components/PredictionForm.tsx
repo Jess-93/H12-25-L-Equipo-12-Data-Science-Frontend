@@ -57,11 +57,11 @@ export const PredictionForm = ({ onSubmit, isLoading }: PredictionFormProps) => 
     if (!validate()) return;
 
     onSubmit({
-      aerolinea: airline,
-      origen: origin,
-      destino: destination,
+      airline: airline,
+      origin_airport: origin,
+      destination_airport: destination,
       fecha_partida: new Date(dateTime).toISOString(),
-      distancia_km: distance,
+      distance: distance,
     });
   };
 
