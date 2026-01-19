@@ -5,14 +5,15 @@ export interface Airport {
 }
 
 export const AIRPORTS: Airport[] = [
-  { code: "GIG", name: "Galeão International", city: "Rio de Janeiro" },
-  { code: "GRU", name: "Guarulhos International", city: "São Paulo" },
-  { code: "CGH", name: "Congonhas", city: "São Paulo" },
-  { code: "BSB", name: "Presidente Juscelino Kubitschek", city: "Brasília" },
-  { code: "CNF", name: "Tancredo Neves International", city: "Belo Horizonte" },
-  { code: "SDU", name: "Santos Dumont", city: "Rio de Janeiro" },
-  { code: "POA", name: "Salgado Filho International", city: "Porto Alegre" },
-  { code: "MAO", name: "Eduardo Gomes International", city: "Manaus" },
+  { code: "GRI", name: "Central Nebraska Regional Airport", city: "Grand Island" },
+  { code: "BTV", name: "Burlington International Airport", city: "Burlington" },
+  { code: "CEC", name: "Del Norte County Airport", city: "Crescent City" },
+  { code: "DBQ", name: "Dubuque Regional Airport", city: "Dubuque" },
+  { code: "DTW", name: "Detroit Metropolitan Airport", city: "Detroit" },
+  { code: "SBN", name: "South Bend International Airport", city: "South Bend" },
+  { code: "SUX", name: "Sioux Gateway Airport	Sioux City", city: "Sioux" },
+  { code: "TTN", name: "Trenton Mercer Airport", city: "Trenton" },
+  
 ];
 
 export interface Airline {
@@ -22,21 +23,23 @@ export interface Airline {
 }
 
 export const AIRLINES: Airline[] = [
-  { code: "AZ", name: "Azul Linhas Aéreas", color: "#0033A0" },
-  { code: "LA", name: "LATAM Airlines", color: "#E40520" },
-  { code: "G3", name: "Gol Transportes Aéreos", color: "#FF6600" },
+  { code: "AA", name: "American Airlines Inc.", color: "#a00070" },
+  { code: "UA", name: "American Airlines Inc.", color: "#E40520" },
+  { code: "US", name: "US Airways Inc.", color: "#FF6600" },
+  { code: "MQ", name: "American Eagle Airlines Inc.", color: "#02008f" },
+  { code: "WN", name: "Southwest Airlines Co.", color: "#004d26" }
 ];
 
 // Distance matrix in km (approximate)
 export const DISTANCES: Record<string, Record<string, number>> = {
-  GIG: { GRU: 350, CGH: 360, BSB: 930, CNF: 340, SDU: 5, POA: 1130, MAO: 2850 },
-  GRU: { GIG: 350, CGH: 15, BSB: 870, CNF: 490, SDU: 355, POA: 860, MAO: 2720 },
-  CGH: { GIG: 360, GRU: 15, BSB: 880, CNF: 500, SDU: 365, POA: 870, MAO: 2730 },
-  BSB: { GIG: 930, GRU: 870, CGH: 880, CNF: 620, SDU: 935, POA: 1620, MAO: 1950 },
-  CNF: { GIG: 340, GRU: 490, CGH: 500, BSB: 620, SDU: 345, POA: 1080, MAO: 2500 },
-  SDU: { GIG: 5, GRU: 355, CGH: 365, BSB: 935, CNF: 345, POA: 1135, MAO: 2855 },
-  POA: { GIG: 1130, GRU: 860, CGH: 870, BSB: 1620, CNF: 1080, SDU: 1135, MAO: 3360 },
-  MAO: { GIG: 2850, GRU: 2720, CGH: 2730, BSB: 1950, CNF: 2500, SDU: 2855, POA: 3360 },
+  GRI: { BTV: 350, CEC: 360, DBQ: 930, DTW: 340, SBN: 5, SUX: 1130, TTN: 2850 },
+  BTV: { GRI: 350, CEC: 15, DBQ: 870, DTW: 490, SBN: 355, SUX: 860, TTN: 2720 },
+  CEC: { GRI: 360, BTV: 15, DBQ: 880, DTW: 500, SBN: 365, SUX: 870, TTN: 2730 },
+  DBQ: { GRI: 930, BTV: 870, CEC: 880, DTW: 620, SBN: 935, SUX: 1620, TTN: 1950 },
+  DTW: { GRI: 340, BTV: 490, CEC: 500, DBQ: 620, SBN: 345, SUX: 1080, TTN: 2500 },
+  SBN: { GRI: 5, BTV: 355, CEC: 365, DBQ: 935, DTW: 345, SUX: 1135, TTN: 2855 },
+  SUX: { GRI: 1130, BTV: 860, CEC: 870, DBQ: 1620, DTW: 1080, SBN: 1135, TTN: 3360 },
+  TTN: { GRI: 2850, BTV: 2720, CEC: 2730, DBQ: 1950, DTW: 2500, SBN: 2855, SUX: 3360 },
 };
 
 export const getDistance = (origin: string, destination: string): number => {

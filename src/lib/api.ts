@@ -10,6 +10,13 @@ export interface PredictionRequest {
   distancia_km: number;
 }
 
+export interface FormattedPrediction extends Omit<PredictionRequest, 'fecha_partida'> {
+  day: number;
+  month: number;
+  year: number;
+  time: number;
+}
+
 export interface PredictionResponse {
   prevision: 'Puntual' | 'Retrasado';
   probabilidad: number;
@@ -17,13 +24,13 @@ export interface PredictionResponse {
   ruta: string;
 }
 
-export const predictFlight = async (data: PredictionRequest): Promise<PredictionResponse> => {
+export const predictFlight = async (data): Promise<PredictionResponse> => {
   const response = await axios.post<PredictionResponse>(`${API_BASE_URL}/predict`, data);
   return response.data;
 };
 
 // Mock function for development/demo purposes
-export const mockPredictFlight = async (data: PredictionRequest): Promise<PredictionResponse> => {
+export const mockPredictFlight = async (data): Promise<PredictionResponse> => {
   // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 1500));
   

@@ -19,11 +19,32 @@ const Index = () => {
     try {
       // Try real API first, fallback to mock
       let response: PredictionResponse;
+      const fecha = new Date(data.fecha_partida);
+        
+      const horas = fecha.getUTCHours();
+      const minutos = fecha.getUTCMinutes();
+      
+      // Lógica: HHMM si hay minutos, solo HH si minutos es 0
+      const time = minutos === 0 ? horas : (horas * 100) + minutos;
+
+      // Desestructuración para omitir fecha_partida
+      const { fecha_partida, ...resto } = data;
+
+      const vueloFormateado = {
+        ...resto,
+        day: fecha.getUTCDate(),
+        month: fecha.getUTCMonth() + 1,
+        year: fecha.getUTCFullYear(),
+        time: time
+      }
+
+      console.log(vueloFormateado);
       try {
-        response = await predictFlight(data);
+        response = await predictFlight(vueloFormateado);
       } catch {
         // Fallback to mock for demo purposes
-        response = await mockPredictFlight(data);
+        response = await mockPredictFlight(vueloFormateado);
+        
         toast.info('Usando datos de demostración', {
           description: 'El servidor no está disponible. Mostrando predicción simulada.',
         });
