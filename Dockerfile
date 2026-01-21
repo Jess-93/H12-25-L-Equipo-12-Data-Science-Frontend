@@ -3,7 +3,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Copiamos los archivos de dependencias primero para que sea más rápido
-COPY package*.json ./
+COPY . .
 RUN npm install
 
 # Copiamos el resto del código y generamos la carpeta 'dist'
