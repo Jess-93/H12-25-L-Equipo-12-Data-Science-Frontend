@@ -1,23 +1,30 @@
-# ETAPA 1: Construcción (Build)
+# 1. Etapa de construcción
 FROM node:20-alpine AS build
 WORKDIR /app
-
-# Copiamos los archivos de dependencias primero para que sea más rápido
-COPY . .
+COPY package*.json ./
 RUN npm install
-
-# Copiamos el resto del código y generamos la carpeta 'dist'
 COPY . .
 RUN npm run build
 
-# ETAPA 2: Servidor de producción (Nginx)
+# 2. Etapa de producción
 FROM nginx:stable-alpine
 
-# Copiamos los archivos compilados desde la etapa 'build'
-# Importante: Vite guarda todo en la carpeta 'dist'
+# Copiamos los archivos generados por Vite (dist) a la carpeta de Nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Exponemos el puerto 80 (puerto estándar web)
+# ESTA ES LA PARTE CLAVE: Configuramos Nginx para que use el puerto de Railway
+# y para que no dé error 404 al refrescar rutas de React.
+RUN echo 'server { \
+    listen 80; \
+    location / { \
+        root /usr/share/nginx/html; \
+        index index.html index.htm; \
+        try_files $uri $uri/ /index.html; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+# Railway inyecta el puerto 80 por defecto si no dices nada, 
+# pero Nginx DEBE estar escuchando en el 80 dentro del contenedor.
 EXPOSE 80
 
-CMD ["/bin/sh", "-c", "sed -i 's/listen  80;/listen '\"$PORT\"';/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+CMD ["nginx", "-g", "daemon off;"]

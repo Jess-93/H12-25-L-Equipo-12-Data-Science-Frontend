@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://flightontime.up.railway.app/';
+const API_BASE_URL = 'https://flightontime.up.railway.app';
 
 export interface PredictionRequest {
   aerolinea: string;
